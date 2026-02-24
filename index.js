@@ -27,13 +27,8 @@ function renderGrid (dimension) {
 }
 
 function cellClickHandler (row, col) {
-    // Пиши код тут
     console.log(`Clicked on cell: ${row}, ${col}`);
-
-
-    /* Пользоваться методом для размещения символа в клетке так:
-        renderSymbolInCell(ZERO, row, col);
-     */
+    renderSymbolInCell(CROSS, row, col);
 }
 
 function renderSymbolInCell (symbol, row, col, color = '#333') {
@@ -54,7 +49,14 @@ function addResetListener () {
 }
 
 function resetClickHandler () {
-    console.log('reset!');
+    const gridRows = container.querySelectorAll('tr');
+    for (const row of gridRows) {
+        for (const cell of row.querySelectorAll('td'))
+        {
+            cell.textContent = EMPTY;
+            cell.style.color = '#333';
+        }
+    }
 }
 
 
