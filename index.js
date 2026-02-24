@@ -2,17 +2,19 @@ const CROSS = 'X';
 const ZERO = 'O';
 const EMPTY = ' ';
 let field = new Array();
+let fieldDimension = 3;
 const container = document.getElementById('fieldWrapper');
 
 startGame();
 addResetListener();
 
 function startGame () {
-    renderGrid(3);
+    renderGrid(fieldDimension);
 }
 
 function renderGrid (dimension) {
     container.innerHTML = '';
+    field = new Array(dimension * dimension).fill(EMPTY);
 
     for (let i = 0; i < dimension; i++) {
         const row = document.createElement('tr');
@@ -27,10 +29,10 @@ function renderGrid (dimension) {
 }
 
 function cellClickHandler (row, col) {
-    if (field[row * 3 + col] === undefined) {
+    if (field[row * fieldDimension + col] === EMPTY) {
         console.log(`Clicked on cell: ${row}, ${col}`);
         renderSymbolInCell(CROSS, row, col);
-        field[row * 3 + col] = CROSS;
+        field[row * fieldDimension + col] = CROSS;
     }
 }
 
