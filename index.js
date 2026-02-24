@@ -68,6 +68,12 @@ function drawWinCells(cells) {
     }
 }
 
+function declareDrawn() {
+    if (field.every(cell => cell !== EMPTY)) {
+        alert("Победила дружба");
+    }
+}
+
 
 /* Test Function */
 /* Победа первого игрока */
