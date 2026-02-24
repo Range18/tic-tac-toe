@@ -1,6 +1,7 @@
 const CROSS = 'X';
 const ZERO = 'O';
 const EMPTY = ' ';
+let playerSymbol = CROSS;
 let field = new Array();
 let fieldDimension = 3;
 let isGameOver = false;
@@ -8,6 +9,21 @@ const container = document.getElementById('fieldWrapper');
 
 startGame();
 addResetListener();
+addChangeSideListener();
+
+function switchPlayer() {
+    playerSymbol = (playerSymbol === CROSS) ? ZERO : CROSS;
+}
+
+function addChangeSideListener() {
+    const btn = document.getElementById('changeSide');
+    btn.addEventListener('click', changeSideClickHandler);
+}
+
+function changeSideClickHandler() {
+    if (isGameOver) return;
+    switchPlayer();
+}
 
 function startGame() {
     renderGrid(fieldDimension);
@@ -114,8 +130,8 @@ function cellClickHandler(row, col) {
 
     if (field[row * fieldDimension + col] === EMPTY) {
         console.log(`Clicked on cell: ${row}, ${col}`);
-        renderSymbolInCell(CROSS, row, col);
-        field[row * fieldDimension + col] = CROSS;
+        renderSymbolInCell(playerSymbol, row, col);
+        field[row * fieldDimension + col] = playerSymbol;
 
         const timeout = setTimeout(() => {
             const winner = checkWinner();
@@ -127,6 +143,14 @@ function cellClickHandler(row, col) {
             }
             }, 100
         );
+
+        if (isDraw) {
+            isGameOver = true;
+            alert("Победила дружба");
+            return;
+        }
+
+        switchPlayer();
     }
 }
 
@@ -169,10 +193,8 @@ function drawWinCells(cells) {
     }
 }
 
-function declareDrawn() {
-    if (field.every(cell => cell !== EMPTY)) {
-        alert("Победила дружба");
-    }
+function isDraw() {
+    return field.every(cell => cell !== EMPTY);
 }
 
 
