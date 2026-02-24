@@ -59,6 +59,12 @@ function resetClickHandler () {
     }
 }
 
+function drawWinCells(cells) {
+    for (const cell of cells) {
+        renderSymbolInCell(cell[2], cell[0], cell[1], 'red');
+    }
+}
+
 
 /* Test Function */
 /* Победа первого игрока */
