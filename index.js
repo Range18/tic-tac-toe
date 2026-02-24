@@ -52,7 +52,20 @@ function addResetListener () {
 }
 
 function resetClickHandler () {
-    console.log('reset!');
+    const gridRows = container.querySelectorAll('tr');
+    for (const row of gridRows) {
+        for (const cell of row.querySelectorAll('td'))
+        {
+            cell.textContent = EMPTY;
+            cell.style.color = '#333';
+        }
+    }
+}
+
+function drawWinCells(cells) {
+    for (const cell of cells) {
+        renderSymbolInCell(cell[2], cell[0], cell[1], 'red');
+    }
 }
 
 
